@@ -4,7 +4,11 @@
 
 A. TEST
 
-1\. Rover Controller Web Server   -  DONE / Arduino IDE Current Program: V10
+1\. Rover Controller Web Server   -  DONE:
+
+&#x20;   - Arduino IDE Current Program: V10
+
+&#x20;   **- Claude: ESP8266 Rover Console Vx / 2 Account**
 
 2\. Motor direction \& speed test  -  DONE
 
@@ -14,7 +18,7 @@ A. TEST
 
 **---------------------------------------- CONTINUE FROM HERE --------------------------------------------**
 
-4\. Ultrasonic sensor test	 -  Power Supply issue with LM7805 / check Arduino IDE Programs (Claude) 
+4\. Ultrasonic sensor test	 -  Power Supply issue with LM7805 / check Arduino IDE Programs (Claude)
 
 5\. Servo test
 
