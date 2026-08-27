@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>ROVER HUD</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">ROVER // HUD</div>
+  <div style="display:flex; align-items:center; gap:16px;">
+    <div class="status"><div class="dot" id="statusDot"></div><span id="statusText">LINK DOWN</span></div>
+    <div class="led-btn" id="ledBtn">◎</div>
+  </div>
+</div>
+
+<div class="stage">
+
+  <div class="joy-wrap">
+    <div class="joy-label">DRIVE</div>
+    <div class="joystick" id="joyDrive"><div class="knob" id="knobDrive"></div></div>
+  </div>
+
+  <div class="center-col">
+    <div class="servo-block">
+      <div class="speed-label">SPEED CAP</div>
+      <input type="range" id="speedSlider" min="0" max="100" value="100">
+      <div class="servo-val" id="speedVal">100%</div>
+    </div>
+    <div class="servo-block">
+      <div class="speed-label">SERVO 1 · PAN</div>
+      <input type="range" id="servo1Slider" min="0" max="180" value="90">
+      <div class="servo-val" id="servo1Val">90°</div>
+    </div>
+    <div class="servo-block">
+      <div class="speed-label">SERVO 2 · TILT</div>
+      <input type="range" id="servo2Slider" min="0" max="180" value="90">
+      <div class="servo-val" id="servo2Val">90°</div>
+    </div>
+    <div class="stopbtn" id="stopBtn">⛔ STOP</div>
+  </div>
+
+  <div class="joy-wrap">
+    <div class="joy-label">AUX / CAM</div>
+    <div class="joystick" id="joyCam"><div class="knob" id="knobCam"></div></div>
+  </div>
+
+</div>
+
+<script src="/script.js"></script>
+</body>
+</html>

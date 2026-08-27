@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Share+Tech+Mono&display=swap');
+
+:root{
+  --bg:#04070a;
+  --accent:#00f5b8;
+  --accent-dim:#0a3d30;
+  --warn:#ff5d5d;
+  --text:#d8fff0;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent; user-select:none;}
+html,body{
+  margin:0; height:100%; background:
+    radial-gradient(circle at 50% 30%, #0b1613 0%, #04070a 70%);
+  color:var(--text); font-family:'Share Tech Mono', monospace;
+  overflow:hidden;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; opacity:.05;
+  background:repeating-linear-gradient(0deg, #fff 0 1px, transparent 1px 3px);
+}
+
+/* ---------- Top bar / title plate ---------- */
+.topbar{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:14px 18px;
+}
+.brand-plate{
+  position:relative;
+  padding:8px 22px;
+  border-radius:8px;
+  background:linear-gradient(180deg, #0e2620 0%, #061512 60%, #030b09 100%);
+  border:1px solid #1c5443;
+  box-shadow:
+    0 0 18px rgba(0,245,184,.18),
+    inset 0 1px 0 rgba(255,255,255,.05),
+    inset 0 -6px 12px rgba(0,0,0,.5);
+}
+.brand-plate::before, .brand-plate::after{
+  content:""; position:absolute; top:3px; bottom:3px; width:6px;
+  border:1px solid var(--accent); opacity:.55;
+}
+.brand-plate::before{ left:3px; border-right:none; }
+.brand-plate::after{ right:3px; border-left:none; }
+.brand-text{
+  font-family:'Orbitron',sans-serif; font-weight:800; letter-spacing:4px;
+  font-size:15px; color:var(--accent);
+  text-shadow:0 0 12px var(--accent);
+}
+
+.status{
+  display:flex; align-items:center; gap:6px; font-size:11px; letter-spacing:1px;
+}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--warn); box-shadow:0 0 8px var(--warn);}
+.dot.on{background:var(--accent); box-shadow:0 0 8px var(--accent);}
+
+.led-btn{
+  width:48px; height:48px; border-radius:50%; border:1px solid #133a2f;
+  background:radial-gradient(circle at 35% 30%, #0e2a22, #071310);
+  display:flex; align-items:center; justify-content:center;
+  color:#5fffce; font-size:18px; transition:.15s;
+}
+.led-btn.active{
+  background:radial-gradient(circle at 35% 30%, #14ffb0, #007a55);
+  color:#04120c; box-shadow:0 0 22px var(--accent);
+}
+
+/* ---------- Main stage ---------- */
+.stage{
+  position:relative; height:calc(100% - 66px);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 24px;
+}
+
+.speed-readout{
+  position:absolute; top:2%; left:50%; transform:translateX(-50%);
+  text-align:center;
+}
+.speed-readout-label{
+  font-size:13px; letter-spacing:3px; color:#5fffce; opacity:.7;
+  margin-bottom:8px;
+}
+.speed-readout-value{
+  font-family:'Orbitron',sans-serif; font-weight:800; font-size:34px;
+  color:var(--accent); text-shadow:0 0 18px var(--accent);
+  line-height:1.1;
+}
+.angle-label{ margin-top:22px; margin-bottom:6px; }
+.angle-value{ font-size:24px; }
+
+.joy-wrap{ display:flex; flex-direction:column; align-items:center; gap:10px; margin-top:-18px; }
+.joy-label{ font-size:13px; letter-spacing:2px; color:#5fffce; opacity:.7; }
+
+.joystick{
+  position:relative; width:150px; height:150px; border-radius:50%;
+  background:radial-gradient(circle at 50% 45%, var(--accent-dim) 0%, transparent 70%);
+  border:1px solid #10352a;
+  touch-action:none;
+}
+.joystick::before{
+  content:""; position:absolute; inset:0; border-radius:50%;
+  box-shadow:inset 0 0 30px rgba(0,245,184,.15);
+}
+/* axis hint lines: vertical slot for throttle, horizontal slot for steering */
+.joystick.vertical::after{
+  content:""; position:absolute; left:50%; top:14px; bottom:14px; width:1px;
+  background:rgba(0,245,184,.25); transform:translateX(-50%);
+}
+.joystick.horizontal::after{
+  content:""; position:absolute; top:50%; left:14px; right:14px; height:1px;
+  background:rgba(0,245,184,.25); transform:translateY(-50%);
+}
+.knob{
+  position:absolute; width:56px; height:56px; border-radius:50%;
+  left:50%; top:50%; transform:translate(-50%,-50%);
+  background:radial-gradient(circle at 35% 30%, #7dffd9, #00c98f 60%, #016b4c);
+  box-shadow:0 0 20px var(--accent), 0 4px 10px rgba(0,0,0,.6);
+}
+
+/* ---------- Center columns (gear + servo) ---------- */
+.mid-col{
+  display:flex; flex-direction:column; align-items:center; gap:10px; width:480px;
+}
+.mid-col:first-of-type{ margin-right:480px; } /* explicit gap between GEAR and SERVO columns */
+.col-label{ font-size:13px; letter-spacing:2px; color:#5fffce; opacity:.8; }
+.gear-label{ margin-left:11px; } /* shifts GEAR right to center over the track, not the tick numbers beside it — tweak this px value to fine-tune */
+
+.slider-row{ display:flex; align-items:flex-start; gap:8px; }
+.tick-labels{
+  display:flex; flex-direction:column; justify-content:space-between;
+  height:160px; padding:0;
+  font-family:'Orbitron',sans-serif; font-weight:700; font-size:12px;
+  color:#3d7a68;
+}
+.tick-labels span.active{ color:var(--accent); text-shadow:0 0 8px var(--accent); }
+
+.gear-track, .servo-track{
+  position:relative; width:44px; height:160px; border-radius:22px;
+  background:linear-gradient(180deg,#081512,#040a08);
+  border:1px solid #10352a;
+  box-shadow:inset 0 0 16px rgba(0,0,0,.6);
+  touch-action:none; overflow:hidden;
+  flex-shrink:0;
+}
+.track-fill{
+  position:absolute; left:0; right:0; bottom:0; height:34px;
+  background:linear-gradient(180deg, rgba(0,245,184,.4), rgba(0,245,184,.06));
+  pointer-events:none;
+}
+.gear-knob{
+  position:absolute; left:50%; top:118px; width:34px; height:46px;
+  transform:translateX(-50%);
+  border-radius:11px;
+  background:linear-gradient(160deg, #8dffe0 0%, #12b98c 45%, #036b4c 100%);
+  box-shadow:0 0 16px var(--accent), 0 3px 8px rgba(0,0,0,.6),
+             inset 0 -8px 10px rgba(0,0,0,.35), inset 0 4px 6px rgba(255,255,255,.15);
+  overflow:hidden;
+}
+.gear-knob::before{
+  /* grip-line texture across the middle, like a shifter's finger grip */
+  content:""; position:absolute; left:5px; right:5px; top:14px; bottom:14px;
+  background:repeating-linear-gradient(0deg, rgba(255,255,255,.16) 0 2px, transparent 2px 6px);
+  border-radius:3px;
+}
+.gear-knob::after{
+  /* glossy corner accent for a bit of unique flair */
+  content:""; position:absolute; top:0; right:0; width:16px; height:16px;
+  background:linear-gradient(135deg, rgba(255,255,255,.55), transparent 70%);
+  border-radius:0 11px 0 100%;
+}
+.servo-knob{
+  position:absolute; left:50%; top:126px; width:34px; height:34px; border-radius:50%;
+  transform:translateX(-50%);
+  background:radial-gradient(circle at 35% 30%, #7dffd9, #00c98f 60%, #016b4c);
+  box-shadow:0 0 16px var(--accent), 0 3px 8px rgba(0,0,0,.6);
+}
+.servo-val{ font-size:12px; color:var(--accent); }
+
+/* ---------- Stop button ---------- */
+.stopbtn{
+  position:absolute; left:50%; bottom:14px; transform:translateX(-50%);
+  padding:10px 20px; border-radius:20px;
+  background:linear-gradient(180deg,#2a1013,#160709); color:var(--warn);
+  border:1px solid #4a1c20; font-family:'Orbitron',sans-serif; font-size:11px;
+  letter-spacing:2px;
+}
+.stopbtn:active{ box-shadow:0 0 16px var(--warn); }

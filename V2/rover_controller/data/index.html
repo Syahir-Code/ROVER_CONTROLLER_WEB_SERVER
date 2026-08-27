@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>ROVER CONSOLE</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand-plate">
+    <span class="brand-text">ROVER CONSOLE</span>
+  </div>
+  <div style="display:flex; align-items:center; gap:16px;">
+    <div class="status"><div class="dot" id="statusDot"></div><span id="statusText">LINK DOWN</span></div>
+    <div class="led-btn" id="ledBtn">◎</div>
+  </div>
+</div>
+
+<div class="stage">
+
+  <div class="speed-readout" id="speedReadout">
+    <div class="speed-readout-label">SPEED</div>
+    <div class="speed-readout-value" id="speedValue">20%</div>
+  </div>
+
+  <div class="joy-wrap">
+    <div class="joy-label">THROTTLE</div>
+    <div class="joystick vertical" id="joyDrive"><div class="knob" id="knobDrive"></div></div>
+  </div>
+
+  <div class="mid-col">
+    <div class="col-label">GEAR</div>
+    <div class="gear-shifter" id="gearShifter">
+      <div class="gear-notch" data-gear="5">5</div>
+      <div class="gear-notch" data-gear="4">4</div>
+      <div class="gear-notch" data-gear="3">3</div>
+      <div class="gear-notch" data-gear="2">2</div>
+      <div class="gear-notch active" data-gear="1">1</div>
+    </div>
+  </div>
+
+  <div class="mid-col">
+    <div class="col-label">SERVO</div>
+    <div class="vslider-track">
+      <input type="range" id="servoSlider" class="vertical-range" min="0" max="180" value="90">
+    </div>
+    <div class="servo-val" id="servoVal">90°</div>
+  </div>
+
+  <div class="joy-wrap">
+    <div class="joy-label">STEER</div>
+    <div class="joystick horizontal" id="joySteer"><div class="knob" id="knobSteer"></div></div>
+  </div>
+
+</div>
+
+<div class="stopbtn" id="stopBtn">⛔ STOP</div>
+
+<script src="script.js"></script>
+</body>
+</html>

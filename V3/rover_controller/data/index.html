@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>ROVER CONSOLE</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand-plate">
+    <span class="brand-text">ROVER CONSOLE</span>
+  </div>
+  <div style="display:flex; align-items:center; gap:16px;">
+    <div class="status"><div class="dot" id="statusDot"></div><span id="statusText">LINK DOWN</span></div>
+    <div class="led-btn" id="ledBtn">◎</div>
+  </div>
+</div>
+
+<div class="stage">
+
+  <div class="speed-readout" id="speedReadout">
+    <div class="speed-readout-label">SPEED</div>
+    <div class="speed-readout-value" id="speedValue">20%</div>
+  </div>
+
+  <div class="joy-wrap">
+    <div class="joy-label">THROTTLE</div>
+    <div class="joystick vertical" id="joyDrive"><div class="knob" id="knobDrive"></div></div>
+  </div>
+
+  <div class="mid-col">
+    <div class="col-label">GEAR</div>
+    <div class="slider-row">
+      <div class="tick-labels" id="gearTicks">
+        <span data-gear="5">5</span>
+        <span data-gear="4">4</span>
+        <span data-gear="3">3</span>
+        <span data-gear="2">2</span>
+        <span data-gear="1" class="active">1</span>
+      </div>
+      <div class="gear-track" id="gearTrack">
+        <div class="track-fill" id="gearFill"></div>
+        <div class="gear-knob" id="gearKnob"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mid-col">
+    <div class="col-label">SERVO</div>
+    <div class="servo-track" id="servoTrack">
+      <div class="track-fill" id="servoFill"></div>
+      <div class="servo-knob" id="servoKnob"></div>
+    </div>
+    <div class="servo-val" id="servoVal">90°</div>
+  </div>
+
+  <div class="joy-wrap">
+    <div class="joy-label">STEER</div>
+    <div class="joystick horizontal" id="joySteer"><div class="knob" id="knobSteer"></div></div>
+  </div>
+
+</div>
+
+<div class="stopbtn" id="stopBtn">⛔ STOP</div>
+
+<script src="script.js"></script>
+</body>
+</html>
