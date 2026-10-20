@@ -90,18 +90,37 @@ AsyncWebSocket ws("/ws");
 // =========================================================
 // MOTOR CONTROL
 // =========================================================
-void setLeftMotor(int spd) {              // spd: -255..255
-  spd = constrain(spd, -255, 255);
-  digitalWrite(IN1, spd >= 0 ? HIGH : LOW);
-  digitalWrite(IN2, spd >= 0 ? LOW : HIGH);
-  analogWrite(ENA, abs(spd));
+// Each direction is its own function. spd: 0..255
+void moveForward(int spd) {
+  spd = constrain(spd, 0, 255);
+  digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);   // left pair forward
+  digitalWrite(IN3, HIGH);  digitalWrite(IN4, LOW);  // right pair forward
+  analogWrite(ENA, spd);
+  analogWrite(ENB, spd);
 }
 
-void setRightMotor(int spd) {              // spd: -255..255
-  spd = constrain(spd, -255, 255);
-  digitalWrite(IN3, spd >= 0 ? HIGH : LOW);
-  digitalWrite(IN4, spd >= 0 ? LOW : HIGH);
-  analogWrite(ENB, abs(spd));
+void moveBackward(int spd) {
+  spd = constrain(spd, 0, 255);
+  digitalWrite(IN1, LOW);  digitalWrite(IN2, HIGH);  // left pair backward
+  digitalWrite(IN3, LOW); digitalWrite(IN4, HIGH);   // right pair backward
+  analogWrite(ENA, spd);
+  analogWrite(ENB, spd);
+}
+
+void turnLeft(int spd) {
+  spd = constrain(spd, 0, 255);
+  digitalWrite(IN1, HIGH);  digitalWrite(IN2, LOW);  // left pair backward
+  digitalWrite(IN3, LOW);  digitalWrite(IN4, HIGH);  // right pair forward
+  analogWrite(ENA, spd);
+  analogWrite(ENB, spd);
+}
+
+void turnRight(int spd) {
+  spd = constrain(spd, 0, 255);
+  digitalWrite(IN1, LOW); digitalWrite(IN2, HIGH);   // left pair forward
+  digitalWrite(IN3, HIGH); digitalWrite(IN4, LOW);   // right pair backward
+  analogWrite(ENA, spd);
+  analogWrite(ENB, spd);
 }
 
 void stopMotors() {
@@ -109,18 +128,25 @@ void stopMotors() {
   analogWrite(ENB, 0);
 }
 
-// Arcade-mix throttle (forward/back, from the left joystick) and steer
-// (left/right, from the right joystick) into left/right motor speeds.
+// Pick the direction from the joysticks (whichever axis is pushed further)
+// and call the matching direction function, scaled by the speed cap.
 void driveMix() {
-  float left  = throttle + steer;
-  float right = throttle - steer;
-
-  float maxMag = max(abs(left), abs(right));
-  if (maxMag > 1.0) { left /= maxMag; right /= maxMag; }
-
+  const float DEADZONE = 0.05;
   float capScale = speedCap / 100.0;
-  setLeftMotor((int)(left  * 255 * capScale));
-  setRightMotor((int)(right * 255 * capScale));
+
+  if (abs(throttle) < DEADZONE && abs(steer) < DEADZONE) {
+    stopMotors();
+  }
+  else if (abs(throttle) >= abs(steer)) {
+    int spd = (int)(abs(throttle) * 255 * capScale);
+    if (throttle > 0) moveForward(spd);
+    else              moveBackward(spd);
+  }
+  else {
+    int spd = (int)(abs(steer) * 255 * capScale);
+    if (steer > 0) turnRight(spd);
+    else           turnLeft(spd);
+  }
 }
 
 // =========================================================
